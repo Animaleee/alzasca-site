@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ALZASCA Ingegneria — Ingegneria per cantieri reali</title>
+  <meta name="description" content="Studio di ingegneria civile in Ticino: genio civile, strutture, edilizia, consulenza energetica. Soluzioni snelle, tempi chiari." />
+  <style>
+    body { background-color: #111; color: #fff; font-family: Arial, sans-serif; margin:0; padding:0; }
+    header, footer { background-color: #000; padding: 1rem 2rem; }
+    header h1 { margin: 0; color: papayaWhip; }
+    nav a { color: royalBlue; margin: 0 10px; text-decoration: none; }
+    section { padding: 2rem; }
+    .container { max-width: 1100px; margin: auto; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit,minmax(250px,1fr)); gap: 1rem; }
+    .card { background: #222; padding: 1rem; border-radius: 5px; }
+    .card h3 { margin-top: 0; color: papayaWhip; }
+    .project-img { background: #333; height: 150px; display: flex; align-items: center; justify-content: center; color: #777; }
+    .team-member { text-align: center; }
+    .team-member img { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; }
+    .btn { display: inline-block; background: royalBlue; color: white; padding: 0.5rem 1rem; text-decoration: none; border-radius: 4px; }
+    .btn:hover { background: #1e3f9e; }
+    input, select { width: 100%; padding: 0.5rem; margin-top: 0.5rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1 id="hero-title" data-i18n="hero.title">Progetti e direzione lavori in tutto il Ticino</h1>
+      <p data-i18n="hero.subtitle">Dall’idea al collaudo, con un unico interlocutore.</p>
+      <nav>
+        <a href="#servizi" data-i18n="nav.services">Servizi</a>
+        <a href="#progetti" data-i18n="nav.projects">Cosa stiamo facendo</a>
+        <a href="#team" data-i18n="nav.team">Chi siamo</a>
+        <a href="#preventivo" data-i18n="nav.quote">Calcola preventivo</a>
+        <a href="#contatti" data-i18n="nav.contacts">Contatti</a>
+      </nav>
+      <button onclick="setLang('it')">IT</button>
+      <button onclick="setLang('de')">DE</button>
+    </div>
+  </header>
+
+  <main>
+    <section id="servizi" class="container">
+      <h2 data-i18n="services.title">I nostri servizi</h2>
+      <div class="cards">
+        <div class="card"><h3>Genio civile</h3></div>
+        <div class="card"><h3>Strutture</h3></div>
+        <div class="card"><h3>Edilizia & DL</h3></div>
+        <div class="card"><h3>Rustici fuori zona</h3></div>
+        <div class="card"><h3>Consulenza energetica</h3></div>
+        <div class="card"><h3>Per i Comuni</h3></div>
+      </div>
+    </section>
+
+    <section id="progetti" class="container">
+      <h2 data-i18n="projects.title">Cosa stiamo facendo</h2>
+      <div class="cards" id="project-gallery">
+        <div class="project-img">Slot foto 1</div>
+        <div class="project-img">Slot foto 2</div>
+        <div class="project-img">Slot foto 3</div>
+      </div>
+    </section>
+
+    <section id="team" class="container">
+      <h2 data-i18n="team.title">Chi siamo</h2>
+      <div class="cards">
+        <div class="team-member"><img src="team/samir.jpg" alt="Samir Tomamichel"><h3>Samir Tomamichel</h3></div>
+        <div class="team-member"><img src="team/micaela.jpg" alt="Micaela Biadici"><h3>Micaela Biadici</h3></div>
+        <div class="team-member"><img src="team/matteo.jpg" alt="Matteo Pedroia"><h3>Matteo Pedroia</h3></div>
+      </div>
+    </section>
+
+    <section id="preventivo" class="container">
+      <h2 data-i18n="quote.title">Calcola un preventivo indicativo</h2>
+      <form oninput="calcolaPreventivo()">
+        <label>Tipo abitativo: <select id="abitativo"><option value="0">No</option><option value="1000">Sì</option></select></label>
+        <label>Ristrutturazione: <select id="ristrutturazione"><option value="0">No</option><option value="1000">Sì</option></select></label>
+        <label>Superficie (m²): <input type="number" id="superficie" value="50"></label>
+        <label>Fuori zona: <select id="fuorizona"><option value="0">No</option><option value="1000">Sì</option></select></label>
+        <label>Riscaldamento: <select id="riscaldamento"><option value="0">No</option><option value="500">Sì</option></select></label>
+      </form>
+      <p id="preventivo-totale">Totale: CHF 4500</p>
+    </section>
+
+    <section id="contatti" class="container">
+      <h2 data-i18n="contacts.title">Contatti</h2>
+      <p>Fisso: 091 760 70 56<br>Cellulare: 079 541 72 60<br>Email: <a href="mailto:info@alzasca.ch">info@alzasca.ch</a><br>Via Valmaggina 53, 6676 Bignasco</p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">© 2025 ALZASCA Ingegneria</div>
+  </footer>
+
+  <script>
+    const translations = {
+      it: {
+        "hero.title": "Progetti e direzione lavori in tutto il Ticino",
+        "hero.subtitle": "Dall’idea al collaudo, con un unico interlocutore."
+      },
+      de: {
+        "hero.title": "Planung und Bauleitung im ganzen Tessin",
+        "hero.subtitle": "Von der Idee bis zur Abnahme – ein einziger Ansprechpartner."
+      }
+    };
+    function setLang(lang) {
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        if (translations[lang] && translations[lang][key]) {
+          el.textContent = translations[lang][key];
+        }
+      });
+    }
+    function calcolaPreventivo() {
+      let totale = 4500;
+      totale += parseInt(document.getElementById("abitativo").value);
+      totale += parseInt(document.getElementById("ristrutturazione").value);
+      const sup = parseInt(document.getElementById("superficie").value);
+      if (sup > 100 && sup <= 300) totale += 1000;
+      if (sup > 300) totale += 3000;
+      totale += parseInt(document.getElementById("fuorizona").value);
+      totale += parseInt(document.getElementById("riscaldamento").value);
+      document.getElementById("preventivo-totale").textContent = "Totale: CHF " + totale;
+    }
+  </script>
+</body>
+</html>
