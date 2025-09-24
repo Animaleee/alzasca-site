@@ -1,11 +1,10 @@
-# Create a standalone HTML file for the Alzasca site, ready to post on GitHub.
-html_content = r"""<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="it">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Alzasca SAGL — Ingegneria civile e consulenza tecnica in Ticino</title>
-  <meta name="description" content="Studio di ingegneria civile in Ticino. Progettazione, direzione lavori, pratiche edilizie, infrastrutture, consulenze, CECE.">
+  <title>Alzasca SAGL — Ingegneria e Architettura in Ticino</title>
+  <meta name="description" content="Studio di ingegneria e architettura in Ticino. Progettazione, direzione lavori, pratiche edilizie, infrastrutture, consulenze, CECE.">
   <style>
     :root{
       --bg:#0b0f14;
@@ -18,331 +17,243 @@ html_content = r"""<!DOCTYPE html>
       --white:#ffffff;
       --black:#000000;
     }
-    /* Reset minimal */
     *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Sans-Serif;background:var(--bg);color:var(--text);line-height:1.5}
-    img{max-width:100%;display:block}
+    body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Ubuntu,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
     a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
     .container{max-width:1200px;margin:0 auto;padding:0 16px}
+
     /* Header */
     .header{position:sticky;top:0;backdrop-filter:blur(8px);background:rgba(11,15,20,.7);border-bottom:1px solid var(--border);z-index:1000}
     .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
     .brand{display:flex;align-items:center;gap:10px}
     .brand img{height:32px;width:32px}
-    .menu{display:flex;gap:22px;color:#cbd5e1;font-size:14px}
+    .menu{display:flex;gap:20px;font-size:14px;color:#cbd5e1}
     .menu a:hover{color:#fff}
-    .hero{background:rgba(15,23,42,.4);text-align:center;padding:80px 0}
-    .hero h1{font-size: clamp(32px, 6vw, 56px);line-height:1.1;margin:0}
-    .hero p{margin:12px auto 0;max-width:760px;color:#cbd5e1;font-size:18px}
-    .btn{appearance:none;border:0;border-radius:14px;padding:14px 20px;font-weight:600;cursor:pointer;transition:.2s all;display:inline-flex;align-items:center;gap:8px}
+    .lang-switch{font-size:14px;color:#cbd5e1;cursor:pointer}
+    .lang-switch:hover{color:#fff}
+
+    /* Hero */
+    .hero{text-align:center;padding:80px 0;background:rgba(15,23,42,.4)}
+    .hero h1{font-size:clamp(32px,6vw,54px);margin:0;line-height:1.2}
+    .hero p{max-width:760px;margin:16px auto 0;color:#cbd5e1;font-size:18px}
+
+    .btn{border:0;border-radius:14px;padding:14px 20px;font-weight:600;cursor:pointer;transition:.2s}
     .btn-primary{background:var(--royal);color:#fff}
     .btn-primary:hover{filter:brightness(1.05)}
-    .btn-accent{background:var(--royal);color:#fff} /* stesso stile del primario, come richiesto */
+
+    /* Sections */
     .section{padding:72px 0}
-    .section h2{font-size: clamp(22px, 4vw, 32px);margin:0 0 18px 0}
+    .section h2{font-size:clamp(22px,4vw,32px);margin-bottom:18px}
     .h2-royal{color:var(--royal)}
     .h2-papaya{color:var(--papaya)}
-    .lead{color:#cbd5e1;margin:0 0 18px 0}
-    .grid{display:grid;gap:16px}
-    .cards{grid-template-columns:repeat(1, minmax(0,1fr))}
-    .card{background:rgba(18,24,32,.7);border:1px solid var(--border);border-radius:18px;overflow:hidden}
-    .card .content{padding:18px}
-    .card .title{color:var(--papaya);font-weight:700;font-size:18px;margin:0 0 8px}
-    .list{color:#cbd5e1;padding-left:0;list-style:none;display:grid;gap:10px}
-    .list li{display:flex;gap:10px;align-items:flex-start}
-    .check{color:var(--papaya);font-weight:900}
-    /* Projects grid */
-    .projects{grid-template-columns:repeat(1, minmax(0,1fr))}
-    .proj{border:1px solid var(--border);background:rgba(2,6,23,.4);border-radius:18px;min-height:160px;display:flex;align-items:center;justify-content:center;color:#64748b}
-    /* Team */
-    .team{grid-template-columns:repeat(1, minmax(0,1fr))}
-    .team-card img{height:200px;object-fit:cover;width:100%}
-    .team-name{color:var(--papaya);font-weight:700;margin:8px 0 4px}
-    .team-role{color:#cbd5e1;font-size:14px;margin:0}
-    .team-bio{color:#94a3b8;font-size:12px;margin-top:6px}
-    /* Contact */
+    .lead{color:#cbd5e1;margin-bottom:20px}
+
+    /* Servizi dinamici */
+    .svc-track{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(280px,1fr);gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px}
+    .svc-card{scroll-snap-align:start;background:rgba(18,24,32,.8);border:1px solid var(--border);border-radius:18px;padding:20px;transition:.25s}
+    .svc-card:hover{transform:translateY(-4px);border-color:var(--royal)}
+    .svc-head h3{margin:0;color:var(--papaya);font-size:18px}
+
+    /* Qualità */
+    .list{list-style:none;padding:0;margin:20px 0;display:grid;gap:10px}
+    .list li{padding-left:0}
+
+    /* Contatti */
     .contact{display:grid;gap:18px;grid-template-columns:1fr}
-    .field{width:100%;padding:12px 12px;border-radius:12px;border:1px solid var(--border);background:#0a0f17;color:var(--text)}
+    .field{width:100%;padding:12px;border-radius:12px;border:1px solid var(--border);background:#0a0f17;color:var(--text)}
+
     /* Footer */
-    .footer{border-top:1px solid var(--border);background:var(--white);color:var(--black);padding:26px 0}
-    .footer-inner{display:flex;flex-direction:column;gap:10px;align-items:center;justify-content:space-between}
-    .footer-links{display:flex;gap:18px}
-    /* Sticky CTA */
-    .sticky-cta{position:fixed;right:18px;bottom:18px;z-index:1001}
-    /* Modal */
-    .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;padding:16px;z-index:1002}
-    .modal{background:var(--surface);border:1px solid var(--border);border-radius:22px;max-width:640px;width:100%;overflow:hidden}
-    .modal-head{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid var(--border)}
-    .modal-body{padding:16px 18px}
-    .close{background:transparent;border:0;color:#cbd5e1;font-size:18px;cursor:pointer}
-    /* Responsive */
-    @media (min-width:640px){
-      .cards{grid-template-columns:repeat(2, minmax(0,1fr))}
-      .projects{grid-template-columns:repeat(2, minmax(0,1fr))}
-      .team{grid-template-columns:repeat(2, minmax(0,1fr))}
-      .contact{grid-template-columns:1fr 1fr}
-    }
-    @media (min-width:992px){
-      .cards{grid-template-columns:repeat(3, minmax(0,1fr))}
-      .projects{grid-template-columns:repeat(3, minmax(0,1fr))}
-      .team{grid-template-columns:repeat(3, minmax(0,1fr))}
-    }
+    .footer{border-top:1px solid var(--border);background:var(--white);color:var(--black);padding:26px 0;text-align:center}
+
+    /* Lingue */
+    [lang-block]{display:none}
+    [lang-block].active{display:block}
   </style>
 </head>
 <body>
-  <!-- Sticky CTA -->
-  <div class="sticky-cta">
-    <button class="btn btn-primary" id="openLead">Richiedi preventivo</button>
-  </div>
 
   <!-- Header -->
   <header class="header">
     <div class="container nav">
       <div class="brand">
-        <!-- Usa il simbolo (adatto su scuro). Sostituisci con il file reale -->
-        <img src="assets/logo-simbolo.png" alt="Alzasca — simbolo" />
+        <img src="assets/logo-simbolo.png" alt="Alzasca — simbolo">
         <strong>Alzasca SAGL</strong>
       </div>
       <nav class="menu">
         <a href="#servizi">Servizi</a>
-        <a href="#progetti">Progetti</a>
         <a href="#qualita">Qualità</a>
-        <a href="#news">News</a>
-        <a href="#team">Chi siamo</a>
         <a href="#contatti">Contatti</a>
       </nav>
+      <div class="lang-switch" id="langToggle">DE</div>
     </div>
   </header>
 
-  <!-- Hero -->
-  <section class="hero">
-    <div class="container">
-      <h1>Ingegneria civile e consulenza tecnica in Ticino</h1>
-      <p class="lead">Un team affidabile e vicino, pronto a guidarti dal progetto alla realizzazione.</p>
-      <div style="margin-top:20px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-        <button class="btn btn-primary" id="openLead2">Richiedi preventivo</button>
-        <a class="btn btn-accent" href="#contatti">Parla con noi</a>
-      </div>
-    </div>
-  </section>
+  <!-- ITALIANO -->
+  <div lang-block="it" class="active">
 
-  <!-- Intro sintetica -->
-  <section class="section">
-    <div class="container">
-      <h2 class="h2-papaya">Alzasca SAGL</h2>
-      <p class="lead">Non solo ingegneria, ma un partner solido per i tuoi progetti. Ti accompagniamo con competenza tecnica, trasparenza e cura del dettaglio, così che ogni cliente possa dire: “È proprio quello che cercavo”.</p>
-    </div>
-  </section>
-
-  <!-- Servizi -->
-  <section id="servizi" class="section">
-    <div class="container">
-      <h2 class="h2-royal">Catalogo Servizi</h2>
-      <div class="grid cards">
-        <article class="card">
-          <div class="content">
-            <h3 class="title">Edilizia e Costruzioni</h3>
-            <p>Domande/notifiche di costruzione (nuove abitazioni, ristrutturazioni, rustici), progetti di arredamento, risanamenti energetici, direzione lavori, pratiche edilizie a posteriori, procedure di delocalizzazione.</p>
-          </div>
-        </article>
-        <article class="card">
-          <div class="content">
-            <h3 class="title">Genio Civile e Infrastrutture</h3>
-            <p>Progetti stradali, canalizzazioni, acquedotti, opere di premunizione, sentieri, infrastrutture elettriche, direzione lavori, strutture portanti, pontine e passerelle.</p>
-          </div>
-        </article>
-        <article class="card">
-          <div class="content">
-            <h3 class="title">Ambito Energetico e Incentivi</h3>
-            <p>Incentivi energia (risanamenti, sostituzione impianti), rapporti e certificazioni CECE, richieste di sussidi per tetti in piode.</p>
-          </div>
-        </article>
-        <article class="card">
-          <div class="content">
-            <h3 class="title">Ambito Agricolo</h3>
-            <p>Progetti agricoli (stalle, rimesse, recinzioni), bonifiche.</p>
-          </div>
-        </article>
-        <article class="card">
-          <div class="content">
-            <h3 class="title">Consulenze e Perizie</h3>
-            <p>Perizie statiche, valutazioni di stabilità, monitoraggi, perizie di stima, perizie assicurative, rilievi e misurazioni.</p>
-          </div>
-        </article>
-        <article class="card">
-          <div class="content">
-            <h3 class="title">Gestione e Organizzazione</h3>
-            <p>Organizzazione raccolte fondi, allestimento business plan.</p>
-          </div>
-        </article>
-        <article class="card">
-          <div class="content">
-            <h3 class="title">Manutenzione, Diagnostica & Indagini</h3>
-            <p>Concetti di manutenzione per edifici, diagnostica e checkup, valutazione stato edifici, organizzazione indagini tecniche e strutturali.</p>
-          </div>
-        </article>
-        <article class="card">
-          <div class="content">
-            <h3 class="title">Appalti e Commesse Pubbliche</h3>
-            <p>Organizzazione appalti e concorsi, elenchi prezzi CPN, consulenze in materia di legge commesse pubbliche.</p>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- Progetti -->
-  <section id="progetti" class="section">
-    <div class="container">
-      <h2 class="h2-papaya">Progetti</h2>
-      <div class="grid projects">
-        <div class="proj">Progetto A</div>
-        <div class="proj">Progetto B</div>
-        <div class="proj">Progetto C</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Qualità -->
-  <section id="qualita" class="section">
-    <div class="container">
-      <h2 class="h2-royal">Qualità che si vede nel risultato</h2>
-      <p class="lead">Qualità concreta, misurabile e percepibile sul campo. Procedure chiare, responsabilità definite e comunicazione che non lascia punti oscuri.</p>
-      <ul class="list">
-        <li><span class="check">•</span> Analisi iniziale con obiettivi, vincoli e rischi condivisi</li>
-        <li><span class="check">•</span> Checklist e verifiche interne per ogni fase di progetto</li>
-        <li><span class="check">•</span> Aggiornamenti trasparenti e tempi di risposta rapidi</li>
-        <li><span class="check">•</span> Consegne puntuali e documentazione completa</li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- News -->
-  <section id="news" class="section">
-    <div class="container">
-      <h2 class="h2-papaya">News &amp; Aggiornamenti</h2>
-      <div class="grid cards" style="grid-template-columns:repeat(1,minmax(0,1fr));">
-        <article class="card"><div class="content">Nuovo intervento su rustico fuori zona edificabile – Vallemaggia</div></article>
-        <article class="card"><div class="content">Direzione lavori: completata una struttura in legno a campata lunga</div></article>
-        <article class="card"><div class="content">CECE: opportunità 2025 per risanamenti energetici in Ticino</div></article>
-      </div>
-    </div>
-  </section>
-
-  <!-- Team -->
-  <section id="team" class="section">
-    <div class="container">
-      <h2 class="h2-royal">Chi siamo</h2>
-      <div class="grid team">
-        <article class="card team-card">
-          <img src="assets/team-samir.jpg" alt="Samir Tomamichel" />
-          <div class="content">
-            <div class="team-name">Samir Tomamichel</div>
-            <p class="team-role">Ingegnere civile SUPSI, OTIA</p>
-            <p class="team-bio">Fondatore dello studio. 14 anni di gestione di uno studio di ingegneria. CAS in direzione lavori.</p>
-          </div>
-        </article>
-        <article class="card team-card">
-          <img src="assets/team-micaela.jpg" alt="Micaela Biadici" />
-          <div class="content">
-            <div class="team-name">Micaela Biadici</div>
-            <p class="team-role">Architetto SUPSI-OTIA</p>
-            <p class="team-bio">Progettazione architettonica e coordinamento tecnico-amministrativo.</p>
-          </div>
-        </article>
-        <article class="card team-card">
-          <img src="assets/team-matteo.jpg" alt="Matteo Pedroia" />
-          <div class="content">
-            <div class="team-name">Matteo Pedroia</div>
-            <p class="team-role">Disegnatore edile e genio civile</p>
-            <p class="team-bio">In formazione come tecnico SSS in progettazione edile; disegno e supporto tecnico.</p>
-          </div>
-        </article>
-      </div>
-      <div class="card" style="margin-top:16px;">
-        <div class="content">
-          <strong>Nesrin Piatti</strong><br/>
-          <span style="font-size:14px;color:#cbd5e1;">Stagista</span>
-          <p class="team-bio">Disegnatrice in architettura di interni; anno di pratica prima della laurea in ingegneria civile.</p>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container">
+        <h1>Progetti che servono comunità, natura e persone.</h1>
+        <p>Un team multidisciplinare che unisce esperienza, innovazione e conoscenza locale per trasformare esigenze pubbliche e private in opere di valore.</p>
+        <div style="margin-top:20px">
+          <a class="btn btn-primary" href="#contatti">Richiedi preventivo</a>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Contatti -->
-  <section id="contatti" class="section">
-    <div class="container">
-      <h2 class="h2-papaya">Contatti</h2>
-      <p class="lead">Scrivici per fissare un incontro o richiedere un preventivo personalizzato.</p>
-      <div class="contact">
-        <div>
-          <p>📞 +41 (0)91 000 00 00</p>
-          <p>✉️ <a href="mailto:info@alzasca.ch">info@alzasca.ch</a></p>
-          <p>📍 Locarnese (Riazzino), Ticino</p>
-        </div>
-        <form onsubmit="event.preventDefault(); alert('Grazie! Ti contatteremo a breve.');">
-          <input class="field" placeholder="Nome e cognome" required>
-          <input class="field" type="email" placeholder="Email" required>
-          <textarea class="field" placeholder="Messaggio / breve descrizione" rows="5" required></textarea>
-          <button class="btn btn-primary" style="width:100%">Invia richiesta</button>
-        </form>
+    <!-- Intro -->
+    <section class="section">
+      <div class="container">
+        <h2 class="h2-papaya">Alzasca SAGL</h2>
+        <p class="lead">Alzasca SAGL è uno studio di ingegneria e architettura con sede in Ticino che riunisce competenze diversificate in un unico team. Offriamo un ventaglio ampio di servizi: dalla progettazione edilizia e infrastrutturale alla direzione lavori, dalle certificazioni energetiche alle consulenze tecniche e perizie, fino al supporto nei bandi e nelle commesse pubbliche.</p>
+        <p class="lead">La multidisciplinarità del nostro gruppo ci permette di affrontare con coerenza e visione d’insieme progetti complessi, integrando aspetti civili, architettonici, energetici e ambientali. Ci rivolgiamo sia a enti pubblici sia a committenti privati, con l’obiettivo di garantire soluzioni solide, trasparenti e orientate al valore duraturo delle opere.</p>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Footer (logo completo con scritta nera su chiaro) -->
+    <!-- Servizi -->
+    <section id="servizi" class="section">
+      <div class="container">
+        <h2 class="h2-royal">Catalogo Servizi</h2>
+        <div class="svc-track">
+          <article class="svc-card"><div class="svc-head"><h3>Genio civile e infrastrutture</h3></div><p>Strade, acquedotti, canalizzazioni, opere di premunizione, sentieri, infrastrutture elettriche.</p></article>
+          <article class="svc-card"><div class="svc-head"><h3>Edilizia e architettura</h3></div><p>Nuove abitazioni, ristrutturazioni, rustici, pratiche edilizie, direzione lavori e risanamenti.</p></article>
+          <article class="svc-card"><div class="svc-head"><h3>Ambito energetico e incentivi</h3></div><p>CECE, pratiche incentivi, risanamenti energetici e sostituzioni impianti.</p></article>
+          <article class="svc-card"><div class="svc-head"><h3>Progetti forestali, agricoli e paesaggistici</h3></div><p>Stalle, rimesse, recinzioni, bonifiche, opere paesaggistiche.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Qualità -->
+    <section id="qualita" class="section">
+      <div class="container">
+        <h2 class="h2-papaya">Qualità che si vede nel risultato</h2>
+        <p class="lead">La qualità per noi non è un concetto astratto, ma il principio che guida ogni fase del lavoro. Significa definire processi chiari e condivisi, assumere responsabilità precise e mantenere una comunicazione trasparente con tutti gli attori coinvolti.</p>
+        <p class="lead">Ogni incarico è seguito con un metodo strutturato che riduce i rischi, ottimizza tempi e costi e mantiene costante l’attenzione al dettaglio. La nostra forza risiede nella capacità di integrare competenze di ingegneria e architettura in un processo coordinato e coerente.</p>
+        <ul class="list">
+          <li><strong>Analisi iniziale approfondita</strong>, con obiettivi e vincoli condivisi.</li>
+          <li><strong>Verifiche sistematiche</strong> con checklist e controlli interni.</li>
+          <li><strong>Comunicazione continua</strong> con aggiornamenti regolari.</li>
+          <li><strong>Consegne puntuali</strong> con documentazione chiara e completa.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Contatti -->
+    <section id="contatti" class="section">
+      <div class="container">
+        <h2 class="h2-royal">Contatti</h2>
+        <p class="lead">Scrivici per fissare un incontro o richiedere un preventivo personalizzato.</p>
+        <div class="contact">
+          <div>
+            <p><strong>Telefono:</strong> 091 760 70 56</p>
+            <p><strong>Cellulare:</strong> 079 541 72 60</p>
+            <p><strong>Email:</strong> <a href="mailto:info@alzasca.ch">info@alzasca.ch</a></p>
+            <p><strong>Indirizzo:</strong> via Valmaggina 53, 6676 Bignasco</p>
+          </div>
+          <form onsubmit="event.preventDefault();alert('Grazie! Ti contatteremo a breve.');">
+            <input class="field" placeholder="Nome e cognome" required>
+            <input class="field" type="email" placeholder="Email" required>
+            <textarea class="field" placeholder="Messaggio" rows="5" required></textarea>
+            <button class="btn btn-primary" type="submit">Invia richiesta</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- TEDESCO -->
+  <div lang-block="de">
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container">
+        <h1>Projekte für Gemeinden, Natur und Menschen.</h1>
+        <p>Ein multidisziplinäres Team, das Erfahrung, Innovation und lokales Wissen vereint, um öffentliche und private Bedürfnisse in wertvolle Werke zu verwandeln.</p>
+        <div style="margin-top:20px">
+          <a class="btn btn-primary" href="#contatti">Offerte anfordern</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Intro -->
+    <section class="section">
+      <div class="container">
+        <h2 class="h2-papaya">Alzasca SAGL</h2>
+        <p class="lead">Alzasca SAGL ist ein Ingenieur- und Architekturbüro im Tessin, das vielfältige Kompetenzen in einem einzigen Team vereint. Wir bieten ein breites Spektrum an Dienstleistungen: vom Hoch- und Tiefbau über Bauleitungen und energetische Zertifizierungen bis hin zu Gutachten und Unterstützung bei öffentlichen Ausschreibungen.</p>
+        <p class="lead">Die Multidisziplinarität unseres Teams erlaubt es uns, komplexe Projekte kohärent und umfassend zu begleiten – von baulichen über architektonische bis zu energetischen und umweltbezogenen Aspekten.</p>
+      </div>
+    </section>
+
+    <!-- Servizi -->
+    <section id="servizi" class="section">
+      <div class="container">
+        <h2 class="h2-royal">Dienstleistungen</h2>
+        <div class="svc-track">
+          <article class="svc-card"><div class="svc-head"><h3>Tiefbau und Infrastrukturen</h3></div><p>Strassen, Wasserleitungen, Kanalisationen, Schutzbauten, Wege, elektrische Infrastrukturen.</p></article>
+          <article class="svc-card"><div class="svc-head"><h3>Hochbau und Architektur</h3></div><p>Neubauten, Renovationen, Rustici, Baugesuche, Bauleitungen und Sanierungen.</p></article>
+          <article class="svc-card"><div class="svc-head"><h3>Energie und Förderungen</h3></div><p>GEAK/CECE, Fördergesuche, energetische Sanierungen und Heizungsersatz.</p></article>
+          <article class="svc-card"><div class="svc-head"><h3>Forst-, Landwirtschafts- und Landschaftsprojekte</h3></div><p>Ställe, Remisen, Einfriedungen, Meliorationen, Landschaftsgestaltungen.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Qualität -->
+    <section id="qualita" class="section">
+      <div class="container">
+        <h2 class="h2-papaya">Qualität, die Vertrauen schafft</h2>
+        <p class="lead">Qualität ist für uns kein abstrakter Begriff, sondern das Prinzip, das jede Phase unserer Arbeit leitet. Klare Prozesse, definierte Verantwortlichkeiten und transparente Kommunikation schaffen Vertrauen bei Auftraggebern, Planern und Handwerkern.</p>
+        <p class="lead">Jeder Auftrag wird nach einer strukturierten Methode begleitet, die Risiken reduziert, Zeit und Kosten optimiert und die Detailgenauigkeit sichert.</p>
+        <ul class="list">
+          <li><strong>Gründliche Anfangsanalyse</strong> mit klaren Zielen und Rahmenbedingungen.</li>
+          <li><strong>Systematische Überprüfungen</strong> mit Checklisten und internen Kontrollen.</li>
+          <li><strong>Kontinuierliche Kommunikation</strong> mit regelmässigen Updates.</li>
+          <li><strong>Zuverlässige Abgaben</strong> mit vollständiger und klarer Dokumentation.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Kontakt -->
+    <section id="contatti" class="section">
+      <div class="container">
+        <h2 class="h2-royal">Kontakt</h2>
+        <p class="lead">Schreiben Sie uns, um einen Termin zu vereinbaren oder eine persönliche Offerte anzufordern.</p>
+        <div class="contact">
+          <div>
+            <p><strong>Telefon:</strong> 091 760 70 56</p>
+            <p><strong>Mobil:</strong> 079 541 72 60</p>
+            <p><strong>Email:</strong> <a href="mailto:info@alzasca.ch">info@alzasca.ch</a></p>
+            <p><strong>Adresse:</strong> Via Valmaggina 53, 6676 Bignasco</p>
+          </div>
+          <form onsubmit="event.preventDefault();alert('Danke! Wir melden uns bald.');">
+            <input class="field" placeholder="Name und Vorname" required>
+            <input class="field" type="email" placeholder="Email" required>
+            <textarea class="field" placeholder="Nachricht" rows="5" required></textarea>
+            <button class="btn btn-primary" type="submit">Senden</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Footer -->
   <footer class="footer">
-    <div class="container footer-inner">
-      <img src="assets/logo-completo.png" alt="Alzasca — logo completo" style="height:34px" />
-      <div class="footer-links">
-        <a href="#">Privacy</a>
-        <a href="#">Note legali</a>
-        <a href="#">Cookie</a>
-      </div>
-      <div>© <span id="year"></span> Alzasca SAGL. Tutti i diritti riservati.</div>
+    <div class="container">
+      <p>© <span id="year"></span> Alzasca SAGL. Tutti i diritti riservati. | Alle Rechte vorbehalten.</p>
     </div>
   </footer>
 
-  <!-- Modal preventivo -->
-  <div class="modal-backdrop" id="leadModal">
-    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="leadTitle">
-      <div class="modal-head">
-        <strong id="leadTitle">Richiedi preventivo</strong>
-        <button class="close" id="closeLead" aria-label="Chiudi">✕</button>
-      </div>
-      <div class="modal-body">
-        <form onsubmit="event.preventDefault(); closeLead(); alert('Grazie! Ti ricontattiamo entro 24h lavorative.');">
-          <div style="display:grid;gap:10px">
-            <input class="field" placeholder="Nome e cognome" required>
-            <input class="field" type="email" placeholder="Email" required>
-            <input class="field" placeholder="Servizio di interesse (es. CECE, rustico, struttura)" required>
-            <textarea class="field" placeholder="Messaggio / breve descrizione" rows="5" required></textarea>
-            <button class="btn btn-primary" type="submit">Invia richiesta</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-
   <script>
-    // year
-    document.getElementById('year').textContent = new Date().getFullYear();
-    // modal controls
-    const leadModal = document.getElementById('leadModal');
-    const openBtns = [document.getElementById('openLead'), document.getElementById('openLead2')];
-    const closeBtn = document.getElementById('closeLead');
-    function openLead(){ leadModal.style.display='flex'; }
-    function closeLead(){ leadModal.style.display='none'; }
-    openBtns.forEach(btn => btn && btn.addEventListener('click', openLead));
-    closeBtn.addEventListener('click', closeLead);
-    leadModal.addEventListener('click', (e)=>{ if(e.target === leadModal) closeLead(); });
-    // Esc to close
-    document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeLead(); });
+    document.getElementById('year').textContent=new Date().getFullYear();
+    const toggle=document.getElementById('langToggle');
+    const it=document.querySelector('[lang-block="it"]');
+    const de=document.querySelector('[lang-block="de"]');
+    let current="it";
+    toggle.addEventListener('click',()=>{
+      if(current==="it"){ it.classList.remove('active'); de.classList.add('active'); toggle.textContent="IT"; current="de"; }
+      else{ de.classList.remove('active'); it.classList.add('active'); toggle.textContent="DE"; current="it"; }
+    });
   </script>
 </body>
 </html>
-"""
-with open("/mnt/data/alzasca_site.html", "w", encoding="utf-8") as f:
-    f.write(html_content)
-"/mnt/data/alzasca_site.html"
