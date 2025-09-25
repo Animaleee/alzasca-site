@@ -4,20 +4,14 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Alzasca SAGL — Ingegneria e Architettura in Ticino</title>
-  <meta name="description" content="Studio di ingegneria e architettura in Ticino. Progettazione, direzione lavori, pratiche edilizie, infrastrutture, consulenze, CECE.">
+  <meta name="description" content="Studio di ingegneria e architettura in Ticino. Progettazione, direzione lavori, pratiche edilizie, infrastrutture, consulenze, CECE." />
   <style>
     :root{
-      --bg:#0b0f14;
-      --surface:#121820;
-      --papaya:#ff9f50;
-      --royal:#4e6cff;
-      --text:#e6edf3;
-      --muted:#94a3b8;
-      --border:#233143;
-      --white:#ffffff;
-      --black:#000000;
+      --bg:#0b0f14; --surface:#121820; --papaya:#ff9f50; --royal:#4e6cff;
+      --text:#e6edf3; --muted:#94a3b8; --border:#233143; --white:#ffffff; --black:#000000;
     }
     *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
     body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Ubuntu,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
     a{color:inherit;text-decoration:none}
     img{max-width:100%;display:block}
@@ -37,27 +31,50 @@
     .hero{text-align:center;padding:80px 0;background:rgba(15,23,42,.4)}
     .hero h1{font-size:clamp(32px,6vw,54px);margin:0;line-height:1.2}
     .hero p{max-width:760px;margin:16px auto 0;color:#cbd5e1;font-size:18px}
-
     .btn{border:0;border-radius:14px;padding:14px 20px;font-weight:600;cursor:pointer;transition:.2s}
     .btn-primary{background:var(--royal);color:#fff}
     .btn-primary:hover{filter:brightness(1.05)}
 
     /* Sections */
     .section{padding:72px 0}
-    .section h2{font-size:clamp(22px,4vw,32px);margin-bottom:18px}
+    .section h2{font-size:clamp(22px,4vw,32px);margin:0 0 18px}
     .h2-royal{color:var(--royal)}
     .h2-papaya{color:var(--papaya)}
-    .lead{color:#cbd5e1;margin-bottom:20px}
+    .lead{color:#cbd5e1;margin:0 0 20px}
 
     /* Servizi dinamici */
-    .svc-track{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(280px,1fr);gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px}
-    .svc-card{scroll-snap-align:start;background:rgba(18,24,32,.8);border:1px solid var(--border);border-radius:18px;padding:20px;transition:.25s}
+    .svc-track{
+      display:grid;grid-auto-flow:column;grid-auto-columns:minmax(280px,1fr);
+      gap:16px;overflow-x:auto;padding-bottom:8px;scroll-snap-type:x mandatory;
+      -webkit-overflow-scrolling:touch;
+    }
+    .svc-track::-webkit-scrollbar{height:8px}
+    .svc-track::-webkit-scrollbar-thumb{background:var(--border);border-radius:8px}
+    .svc-card{
+      scroll-snap-align:start;background:rgba(18,24,32,.82);border:1px solid var(--border);
+      border-radius:18px;padding:20px;transition:.25s
+    }
     .svc-card:hover{transform:translateY(-4px);border-color:var(--royal)}
     .svc-head h3{margin:0;color:var(--papaya);font-size:18px}
 
-    /* Qualità */
-    .list{list-style:none;padding:0;margin:20px 0;display:grid;gap:10px}
-    .list li{padding-left:0}
+    /* Progetti */
+    .projects{display:grid;gap:16px;grid-template-columns:repeat(1,minmax(0,1fr))}
+    .proj{border:1px solid var(--border);background:rgba(2,6,23,.4);border-radius:18px;overflow:hidden}
+    .proj img{width:100%;height:160px;object-fit:cover}
+    .proj .p{padding:12px;color:#cbd5e1}
+
+    /* News */
+    .cards{display:grid;gap:16px;grid-template-columns:repeat(1,minmax(0,1fr))}
+    .card{background:rgba(18,24,32,.8);border:1px solid var(--border);border-radius:18px;padding:16px}
+
+    /* Team */
+    .team{display:grid;gap:16px;grid-template-columns:repeat(1,minmax(0,1fr))}
+    .team-card{background:rgba(18,24,32,.8);border:1px solid var(--border);border-radius:18px;overflow:hidden}
+    .team-card img{height:220px;width:100%;object-fit:cover}
+    .team-card .content{padding:14px}
+    .team-name{color:var(--papaya);font-weight:700;margin:4px 0}
+    .team-role{color:#cbd5e1;font-size:14px;margin:0}
+    .team-bio{color:#94a3b8;font-size:13px;margin-top:6px}
 
     /* Contatti */
     .contact{display:grid;gap:18px;grid-template-columns:1fr}
@@ -66,40 +83,69 @@
     /* Footer */
     .footer{border-top:1px solid var(--border);background:var(--white);color:var(--black);padding:26px 0;text-align:center}
 
-    /* Lingue */
+    /* Sticky CTA */
+    .sticky-cta{position:fixed;right:18px;bottom:18px;z-index:1001}
+    .sticky-cta .btn{box-shadow:0 8px 24px rgba(0,0,0,.35)}
+
+    /* Responsive */
+    @media (min-width:640px){
+      .projects{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .team{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .contact{grid-template-columns:1fr 1fr}
+    }
+    @media (min-width:992px){
+      .projects{grid-template-columns:repeat(3,minmax(0,1fr))}
+      .cards{grid-template-columns:repeat(3,minmax(0,1fr))}
+      .team{grid-template-columns:repeat(3,minmax(0,1fr))}
+    }
+
+    /* Lingue: mostra/nascondi blocchi */
     [lang-block]{display:none}
     [lang-block].active{display:block}
   </style>
 </head>
 <body>
+  <!-- Sticky CTA -->
+  <div class="sticky-cta"><a class="btn btn-primary" href="#contatti">Richiedi preventivo</a></div>
 
   <!-- Header -->
   <header class="header">
     <div class="container nav">
       <div class="brand">
-        <img src="assets/logo-simbolo.png" alt="Alzasca — simbolo">
+        <img src="assets/logo-simbolo.png" alt="Alzasca — simbolo" />
         <strong>Alzasca SAGL</strong>
       </div>
-      <nav class="menu">
+      <!-- Menu IT -->
+      <nav class="menu" lang-block="it" id="menu-it" class="active">
         <a href="#servizi">Servizi</a>
+        <a href="#progetti">Progetti</a>
+        <a href="#news">News</a>
+        <a href="#team">Chi siamo</a>
         <a href="#qualita">Qualità</a>
         <a href="#contatti">Contatti</a>
+      </nav>
+      <!-- Menu DE -->
+      <nav class="menu" lang-block="de" id="menu-de">
+        <a href="#servizi">Dienstleistungen</a>
+        <a href="#progetti">Projekte</a>
+        <a href="#news">News</a>
+        <a href="#team">Über uns</a>
+        <a href="#qualita">Qualität</a>
+        <a href="#contatti">Kontakt</a>
       </nav>
       <div class="lang-switch" id="langToggle">DE</div>
     </div>
   </header>
 
-  <!-- ITALIANO -->
-  <div lang-block="it" class="active">
-
+  <!-- ===== ITALIANO ===== -->
+  <main lang-block="it" class="active" id="it">
     <!-- Hero -->
     <section class="hero">
       <div class="container">
         <h1>Progetti che servono comunità, natura e persone.</h1>
         <p>Un team multidisciplinare che unisce esperienza, innovazione e conoscenza locale per trasformare esigenze pubbliche e private in opere di valore.</p>
-        <div style="margin-top:20px">
-          <a class="btn btn-primary" href="#contatti">Richiedi preventivo</a>
-        </div>
+        <div style="margin-top:20px"><a class="btn btn-primary" href="#contatti">Richiedi preventivo</a></div>
       </div>
     </section>
 
@@ -116,11 +162,16 @@
     <section id="servizi" class="section">
       <div class="container">
         <h2 class="h2-royal">Catalogo Servizi</h2>
+        <p class="lead">Scorri per esplorare i servizi →</p>
         <div class="svc-track">
-          <article class="svc-card"><div class="svc-head"><h3>Genio civile e infrastrutture</h3></div><p>Strade, acquedotti, canalizzazioni, opere di premunizione, sentieri, infrastrutture elettriche.</p></article>
-          <article class="svc-card"><div class="svc-head"><h3>Edilizia e architettura</h3></div><p>Nuove abitazioni, ristrutturazioni, rustici, pratiche edilizie, direzione lavori e risanamenti.</p></article>
-          <article class="svc-card"><div class="svc-head"><h3>Ambito energetico e incentivi</h3></div><p>CECE, pratiche incentivi, risanamenti energetici e sostituzioni impianti.</p></article>
-          <article class="svc-card"><div class="svc-head"><h3>Progetti forestali, agricoli e paesaggistici</h3></div><p>Stalle, rimesse, recinzioni, bonifiche, opere paesaggistiche.</p></article>
+          <article class="svc-card"><div class="svc-head"><h3>Genio civile e infrastrutture</h3></div><p>Strade, acquedotti, canalizzazioni, opere di premunizione, sentieri, infrastrutture elettriche. Progetti e direzione lavori con rigore tecnico.</p></article>
+          <article class="svc-card"><div class="svc-head"><h3>Edilizia e architettura</h3></div><p>Nuove abitazioni, ristrutturazioni, rustici, pratiche edilizie, direzione lavori e risanamenti. Ingegneria e architettura integrate.</p></article>
+          <article class="svc-card"><div class="svc-head"><h3>Ambito energetico e incentivi</h3></div><p>CECE, pratiche incentivi, progetti di risanamento e sostituzione impianti. Normative aggiornate e tempi rapidi.</p></article>
+          <article class="svc-card"><div class="svc-head"><h3>Progetti forestali, agricoli e paesaggistici</h3></div><p>Stalle, rimesse, recinzioni, bonifiche, opere di paesaggio. Equilibrio tra esigenze produttive e tutela del territorio.</p></article>
+          <article class="svc-card"><div class="svc-head"><h3>Consulenze e perizie</h3></div><p>Perizie statiche, stime, monitoraggi, rilievi. Analisi indipendenti e documentate per decisioni fondate.</p></article>
+          <article class="svc-card"><div class="svc-head"><h3>Gestione e organizzazione</h3></div><p>Raccolte fondi, business plan, supporto operativo alle commesse. Dall’idea al piano attuabile.</p></article>
+          <article class="svc-card"><div class="svc-head"><h3>Manutenzione, diagnostica &amp; indagini</h3></div><p>Check-up edifici, diagnosi strutturali, piani di manutenzione. Prevenzione per ridurre rischi e costi.</p></article>
+          <article class="svc-card"><div class="svc-head"><h3>Appalti e commesse pubbliche</h3></div><p>Preparazione documenti, elenchi prezzi CPN, consulenza normativa. Procedure chiare e verificabili.</p></article>
         </div>
       </div>
     </section>
@@ -130,13 +181,86 @@
       <div class="container">
         <h2 class="h2-papaya">Qualità che si vede nel risultato</h2>
         <p class="lead">La qualità per noi non è un concetto astratto, ma il principio che guida ogni fase del lavoro. Significa definire processi chiari e condivisi, assumere responsabilità precise e mantenere una comunicazione trasparente con tutti gli attori coinvolti.</p>
-        <p class="lead">Ogni incarico è seguito con un metodo strutturato che riduce i rischi, ottimizza tempi e costi e mantiene costante l’attenzione al dettaglio. La nostra forza risiede nella capacità di integrare competenze di ingegneria e architettura in un processo coordinato e coerente.</p>
+        <p class="lead">Ogni incarico è seguito con un metodo strutturato che riduce i rischi, ottimizza tempi e costi e mantiene costante l’attenzione al dettaglio. La nostra forza risiede nella capacità di integrare competenze di <strong>ingegneria e architettura</strong> in un processo coordinato e coerente.</p>
         <ul class="list">
-          <li><strong>Analisi iniziale approfondita</strong>, con obiettivi e vincoli condivisi.</li>
-          <li><strong>Verifiche sistematiche</strong> con checklist e controlli interni.</li>
-          <li><strong>Comunicazione continua</strong> con aggiornamenti regolari.</li>
-          <li><strong>Consegne puntuali</strong> con documentazione chiara e completa.</li>
+          <li><strong>Analisi iniziale approfondita</strong>, con obiettivi, vincoli e rischi chiariti e condivisi.</li>
+          <li><strong>Verifiche sistematiche e periodiche</strong>, attraverso checklist e controlli interni in ogni fase di progetto.</li>
+          <li><strong>Comunicazione continua</strong>, con aggiornamenti regolari e tempi di risposta rapidi.</li>
+          <li><strong>Consegne puntuali e complete</strong>, corredate da documentazione chiara e facilmente consultabile.</li>
         </ul>
+      </div>
+    </section>
+
+    <!-- Progetti -->
+    <section id="progetti" class="section">
+      <div class="container">
+        <h2 class="h2-royal">Progetti</h2>
+        <div class="projects">
+          <article class="proj">
+            <img src="assets/progetto-a.jpg" alt="Progetto A" />
+            <div class="p">Intervento infrastrutturale in area montana: protezione e accessibilità. (Demo)</div>
+          </article>
+          <article class="proj">
+            <img src="assets/progetto-b.jpg" alt="Progetto B" />
+            <div class="p">Ristrutturazione edilizia con efficientamento energetico CECE. (Demo)</div>
+          </article>
+          <article class="proj">
+            <img src="assets/progetto-c.jpg" alt="Progetto C" />
+            <div class="p">Nuova abitazione: progetto esecutivo e direzione lavori. (Demo)</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- News -->
+    <section id="news" class="section">
+      <div class="container">
+        <h2 class="h2-papaya">News &amp; Aggiornamenti</h2>
+        <div class="cards">
+          <article class="card">Nuovo intervento su rustico fuori zona edificabile – Vallemaggia (Demo)</article>
+          <article class="card">Direzione lavori: completata una struttura in legno a campata lunga (Demo)</article>
+          <article class="card">CECE: opportunità 2025 per risanamenti energetici in Ticino (Demo)</article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Team -->
+    <section id="team" class="section">
+      <div class="container">
+        <h2 class="h2-royal">Chi siamo</h2>
+        <div class="team">
+          <article class="team-card">
+            <img src="assets/team-samir.jpg" alt="Samir Tomamichel" />
+            <div class="content">
+              <div class="team-name">Samir Tomamichel</div>
+              <p class="team-role">Ingegnere civile SUPSI, OTIA</p>
+              <p class="team-bio">Fondatore dello studio. 14 anni di gestione di uno studio di ingegneria. CAS in direzione lavori.</p>
+            </div>
+          </article>
+          <article class="team-card">
+            <img src="assets/team-micaela.jpg" alt="Micaela Biadici" />
+            <div class="content">
+              <div class="team-name">Micaela Biadici</div>
+              <p class="team-role">Architetto SUPSI-OTIA</p>
+              <p class="team-bio">Progettazione architettonica e coordinamento tecnico-amministrativo.</p>
+            </div>
+          </article>
+          <article class="team-card">
+            <img src="assets/team-matteo.jpg" alt="Matteo Pedroia" />
+            <div class="content">
+              <div class="team-name">Matteo Pedroia</div>
+              <p class="team-role">Disegnatore edile e genio civile</p>
+              <p class="team-bio">In formazione come tecnico SSS in progettazione edile; disegno e supporto tecnico.</p>
+            </div>
+          </article>
+        </div>
+        <div class="card" style="margin-top:16px">
+          <div class="content" style="padding:14px">
+            <strong>Nesrin Piatti</strong><br/>
+            <span style="font-size:14px;color:#cbd5e1;">Stagista</span>
+            <p class="team-bio">Disegnatrice in architettura di interni; anno di pratica prima della laurea in ingegneria civile.</p>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -155,25 +279,22 @@
           <form onsubmit="event.preventDefault();alert('Grazie! Ti contatteremo a breve.');">
             <input class="field" placeholder="Nome e cognome" required>
             <input class="field" type="email" placeholder="Email" required>
-            <textarea class="field" placeholder="Messaggio" rows="5" required></textarea>
+            <textarea class="field" placeholder="Messaggio / breve descrizione" rows="5" required></textarea>
             <button class="btn btn-primary" type="submit">Invia richiesta</button>
           </form>
         </div>
       </div>
     </section>
-  </div>
+  </main>
 
-  <!-- TEDESCO -->
-  <div lang-block="de">
-
+  <!-- ===== DEUTSCH ===== -->
+  <main lang-block="de" id="de">
     <!-- Hero -->
     <section class="hero">
       <div class="container">
         <h1>Projekte für Gemeinden, Natur und Menschen.</h1>
         <p>Ein multidisziplinäres Team, das Erfahrung, Innovation und lokales Wissen vereint, um öffentliche und private Bedürfnisse in wertvolle Werke zu verwandeln.</p>
-        <div style="margin-top:20px">
-          <a class="btn btn-primary" href="#contatti">Offerte anfordern</a>
-        </div>
+        <div style="margin-top:20px"><a class="btn btn-primary" href="#contatti">Offerte anfordern</a></div>
       </div>
     </section>
 
@@ -186,15 +307,20 @@
       </div>
     </section>
 
-    <!-- Servizi -->
+    <!-- Dienstleistungen -->
     <section id="servizi" class="section">
       <div class="container">
         <h2 class="h2-royal">Dienstleistungen</h2>
+        <p class="lead">Zum Erkunden horizontal scrollen →</p>
         <div class="svc-track">
           <article class="svc-card"><div class="svc-head"><h3>Tiefbau und Infrastrukturen</h3></div><p>Strassen, Wasserleitungen, Kanalisationen, Schutzbauten, Wege, elektrische Infrastrukturen.</p></article>
-          <article class="svc-card"><div class="svc-head"><h3>Hochbau und Architektur</h3></div><p>Neubauten, Renovationen, Rustici, Baugesuche, Bauleitungen und Sanierungen.</p></article>
+          <article class="svc-card"><div class="svc-head"><h3>Hochbau und Architektur</h3></div><p>Neubauten, Renovationen, Rustici, Baugesuche, Bauleitungen und energetische Sanierungen.</p></article>
           <article class="svc-card"><div class="svc-head"><h3>Energie und Förderungen</h3></div><p>GEAK/CECE, Fördergesuche, energetische Sanierungen und Heizungsersatz.</p></article>
           <article class="svc-card"><div class="svc-head"><h3>Forst-, Landwirtschafts- und Landschaftsprojekte</h3></div><p>Ställe, Remisen, Einfriedungen, Meliorationen, Landschaftsgestaltungen.</p></article>
+          <article class="svc-card"><div class="svc-head"><h3>Gutachten und Expertisen</h3></div><p>Statische Gutachten, Bewertungen, Monitoring und Vermessungen.</p></article>
+          <article class="svc-card"><div class="svc-head"><h3>Management und Organisation</h3></div><p>Fundraising, Businesspläne, operative Unterstützung von Aufträgen.</p></article>
+          <article class="svc-card"><div class="svc-head"><h3>Wartung, Diagnostik &amp; Untersuchungen</h3></div><p>Gebäude-Check-ups, strukturelle Diagnosen, Wartungspläne.</p></article>
+          <article class="svc-card"><div class="svc-head"><h3>Ausschreibungen und öffentliche Aufträge</h3></div><p>Unterlagen, CPN-Preislisten, rechtliche Beratung und Verfahren.</p></article>
         </div>
       </div>
     </section>
@@ -211,6 +337,79 @@
           <li><strong>Kontinuierliche Kommunikation</strong> mit regelmässigen Updates.</li>
           <li><strong>Zuverlässige Abgaben</strong> mit vollständiger und klarer Dokumentation.</li>
         </ul>
+      </div>
+    </section>
+
+    <!-- Projekte -->
+    <section id="progetti" class="section">
+      <div class="container">
+        <h2 class="h2-royal">Projekte</h2>
+        <div class="projects">
+          <article class="proj">
+            <img src="assets/projekt-a.jpg" alt="Projekt A" />
+            <div class="p">Infrastruktureingriff im Berggebiet: Schutz und Erreichbarkeit. (Demo)</div>
+          </article>
+          <article class="proj">
+            <img src="assets/projekt-b.jpg" alt="Projekt B" />
+            <div class="p">Sanierung mit energetischer Optimierung (GEAK/CECE). (Demo)</div>
+          </article>
+          <article class="proj">
+            <img src="assets/projekt-c.jpg" alt="Projekt C" />
+            <div class="p">Neubau: Ausführungsprojekt und Bauleitung. (Demo)</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- News -->
+    <section id="news" class="section">
+      <div class="container">
+        <h2 class="h2-papaya">News &amp; Aktuelles</h2>
+        <div class="cards">
+          <article class="card">Neuer Eingriff an einem Rustico ausserhalb der Bauzone – Vallemaggia (Demo)</article>
+          <article class="card">Bauleitung: Holztragwerk mit grosser Spannweite abgeschlossen (Demo)</article>
+          <article class="card">GEAK/CECE: Fördermöglichkeiten 2025 im Tessin (Demo)</article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Über uns -->
+    <section id="team" class="section">
+      <div class="container">
+        <h2 class="h2-royal">Über uns</h2>
+        <div class="team">
+          <article class="team-card">
+            <img src="assets/team-samir.jpg" alt="Samir Tomamichel" />
+            <div class="content">
+              <div class="team-name">Samir Tomamichel</div>
+              <p class="team-role">Bauingenieur SUPSI, OTIA</p>
+              <p class="team-bio">Gründer des Büros. 14 Jahre Leitung eines Ingenieurbüros. CAS Bauleitung.</p>
+            </div>
+          </article>
+          <article class="team-card">
+            <img src="assets/team-micaela.jpg" alt="Micaela Biadici" />
+            <div class="content">
+              <div class="team-name">Micaela Biadici</div>
+              <p class="team-role">Architektin SUPSI-OTIA</p>
+              <p class="team-bio">Architektonische Planung und technisch-administrative Koordination.</p>
+            </div>
+          </article>
+          <article class="team-card">
+            <img src="assets/team-matteo.jpg" alt="Matteo Pedroia" />
+            <div class="content">
+              <div class="team-name">Matteo Pedroia</div>
+              <p class="team-role">Hochbauzeichner und Tiefbau</p>
+              <p class="team-bio">In Ausbildung zum Techniker HF; Planer und technischer Support.</p>
+            </div>
+          </article>
+        </div>
+        <div class="card" style="margin-top:16px">
+          <div class="content" style="padding:14px">
+            <strong>Nesrin Piatti</strong><br/>
+            <span style="font-size:14px;color:#cbd5e1;">Praktikantin</span>
+            <p class="team-bio">Zeichnerin Innenarchitektur; Praxisjahr vor dem Bauingenieurstudium.</p>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -235,7 +434,7 @@
         </div>
       </div>
     </section>
-  </div>
+  </main>
 
   <!-- Footer -->
   <footer class="footer">
@@ -245,15 +444,31 @@
   </footer>
 
   <script>
-    document.getElementById('year').textContent=new Date().getFullYear();
-    const toggle=document.getElementById('langToggle');
-    const it=document.querySelector('[lang-block="it"]');
-    const de=document.querySelector('[lang-block="de"]');
-    let current="it";
-    toggle.addEventListener('click',()=>{
-      if(current==="it"){ it.classList.remove('active'); de.classList.add('active'); toggle.textContent="IT"; current="de"; }
-      else{ de.classList.remove('active'); it.classList.add('active'); toggle.textContent="DE"; current="it"; }
-    });
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Language toggle
+    const toggle = document.getElementById('langToggle');
+    const itMain = document.getElementById('it');
+    const deMain = document.getElementById('de');
+    const menuIt = document.getElementById('menu-it');
+    const menuDe = document.getElementById('menu-de');
+    let current = 'it';
+    function setLang(lang){
+      if(lang === 'it'){
+        itMain.classList.add('active'); deMain.classList.remove('active');
+        menuIt.classList.add('active'); menuDe.classList.remove('active');
+        toggle.textContent = 'DE'; document.documentElement.lang='it';
+      }else{
+        deMain.classList.add('active'); itMain.classList.remove('active');
+        menuDe.classList.add('active'); menuIt.classList.remove('active');
+        toggle.textContent = 'IT'; document.documentElement.lang='de';
+      }
+      current = lang;
+    }
+    toggle.addEventListener('click', ()=> setLang(current === 'it' ? 'de' : 'it'));
+    // default IT active
+    setLang('it');
   </script>
 </body>
 </html>
